@@ -1,5 +1,7 @@
 package br.org.soujava.demo.microstream.persistence;
 
+import jakarta.json.bind.annotation.JsonbCreator;
+import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
@@ -10,28 +12,31 @@ import java.util.Objects;
 @Entity
 public class Book {
     @Id
-    private  String isbn;
+    private String isbn;
     @Column("title")
     private String title;
     @Column("year")
-    private Year year;
+    private int year;
 
-    public Book(String isbn, String title, Year year) {
+    @JsonbCreator
+    public Book(@JsonbProperty("isbn") String isbn,
+                @JsonbProperty("title") String title,
+                @JsonbProperty("year") int year) {
         this.isbn = isbn;
         this.title = title;
         this.year = year;
     }
 
 
-    public String isbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public String title() {
+    public String getTitle() {
         return title;
     }
 
-    public Year year() {
+    public int getYear() {
         return year;
     }
 
